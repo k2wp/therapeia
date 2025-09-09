@@ -31,7 +31,7 @@ TODO
 2. `6610501955` *กฤชณัท ธนพิพัฒนศิริ*
 ([@krtchnt](https://github.com/krtchnt)) - **Backend Development**
 3. `6610505276` *ก้องสกุล พันธุ์ยาง*
-([@balliolon2](https://github.com/balliolon2)) - TODO
+([@balliolon2](https://github.com/balliolon2)) - **Frontend Development**
 4. `6610505560` *วรุตม์ มาศสุวรรณ*
 ([@nightyneko](https://github.com/nightyneko)) - **API & Database
 Design**
