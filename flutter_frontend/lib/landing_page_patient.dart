@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/appointments_page_patient.dart';
+import 'package:flutter_frontend/payment_page_patient.dart';
 
 import 'information_page_patient.dart';
+import 'benefits_page_patient.dart';
 import 'login_page.dart';
 import 'widgets/custom_app_bar.dart';
 import 'widgets/landing_page_item.dart';
@@ -42,13 +45,46 @@ class LandingPagePatient extends StatelessWidget {
             text: item['text']!,
             icon: item['icon']!,
             onTap: () {
-              if (item['text'] == 'ข้อมูลส่วนตัว') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const InformationPagePatient(),
-                  ),
-                );
+              switch (item['text']) {
+                case 'ข้อมูลส่วนตัว':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const InformationPagePatient(),
+                    ),
+                  );
+                case 'เช็คสิทธิ์รักษา':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BenefitsPagePatient(),
+                    ),
+                  );
+                  break;
+                case 'รายการนัด':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AppointmentsPagePatient(),
+                    ),
+                  );
+                  break;
+                case 'เลื่อนนัด':
+                  // Navigate to Reschedule Appointment Page
+                  break;
+                case 'รับยา':
+                  // Navigate to Medication Pickup Page
+                  break;
+                case 'ชำระเงิน':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PaymentPagePatient(),
+                    ),
+                  );
+                  break;
+                default:
+                  break;
               }
             },
           );
