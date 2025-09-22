@@ -27,7 +27,7 @@ TODO
 ## Contributions
 
 1. `6410500301` *ภูบดี สุตันรักษ์*
-([@ItsZodiaX](https://github.com/ItsZodiaX)) - TODO
+([@ItsZodiaX](https://github.com/ItsZodiaX)) - **Frontend Development**
 2. `6610501955` *กฤชณัท ธนพิพัฒนศิริ*
 ([@krtchnt](https://github.com/krtchnt)) - **Backend Development**
 3. `6610505276` *ก้องสกุล พันธุ์ยาง*
