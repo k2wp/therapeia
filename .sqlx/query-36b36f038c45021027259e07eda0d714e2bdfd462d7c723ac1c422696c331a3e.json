@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            SELECT appointment_id, patient_id, timeslot_id, date,\n                   status as \"status: _\", created_at\n            FROM appointments WHERE appointment_id = $1\n            ",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "appointment_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 1,
+        "name": "patient_id",
+        "type_info": "Uuid"
+      },
+      {
+        "ordinal": 2,
+        "name": "timeslot_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "date",
+        "type_info": "Date"
+      },
+      {
+        "ordinal": 4,
+        "name": "status: _",
+        "type_info": {
+          "Custom": {
+            "name": "appointment_status",
+            "kind": {
+              "Enum": [
+                "PENDING",
+                "ACCEPTED",
+                "REJECTED",
+                "CANCELED"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "ordinal": 5,
+        "name": "created_at",
+        "type_info": "Timestamptz"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "36b36f038c45021027259e07eda0d714e2bdfd462d7c723ac1c422696c331a3e"
+}

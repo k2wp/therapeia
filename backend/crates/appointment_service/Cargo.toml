@@ -1,0 +1,14 @@
+[package]
+name = "appointment_service"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.8.4"
+common = { version = "0.1.0", path = "../common" }
+db = { version = "0.1.0", path = "../db" }
+serde = "1.0.228"
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "time", "uuid"] }
+time = { version = "0.3.44", features = ["serde"] }
+utoipa = { version = "5.4.0", features = ["uuid", "time"] }
+uuid = { version = "1.18.1", features = ["serde"] }

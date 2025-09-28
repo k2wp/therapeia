@@ -1,0 +1,25 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+common = { path = "../../crates/common" }
+db = { path = "../../crates/db" }
+
+axum = "0.8.4"
+tokio = { version = "1.47.1", features = ["rt-multi-thread"] }
+tracing-subscriber = { version = "0.3.20", features = ["env-filter"] }
+openapi = { version = "0.1.0", path = "../../crates/openapi" }
+profile_service = { version = "0.1.0", path = "../../crates/profile_service" }
+catalog_service = { version = "0.1.0", path = "../../crates/catalog_service" }
+auth_service = { version = "0.1.0", path = "../../crates/auth_service" }
+appointment_service = { version = "0.1.0", path = "../../crates/appointment_service" }
+diagnosis_service = { version = "0.1.0", path = "../../crates/diagnosis_service" }
+prescription_service = { version = "0.1.0", path = "../../crates/prescription_service" }
+order_service = { version = "0.1.0", path = "../../crates/order_service" }
+shipping_service = { version = "0.1.0", path = "../../crates/shipping_service" }
+tracing = "0.1.41"
+tower-http = { version = "0.6.6", features = ["trace", "cors"] }
+axum-server = "0.7.2"
+anyhow = "1.0.100"

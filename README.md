@@ -38,7 +38,7 @@ Design**
 
 ## System Architecture
 
-TODO
+Service-based modular monolith, each service being layered
 
 ## Demo
 

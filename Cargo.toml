@@ -1,0 +1,3 @@
+[workspace]
+resolver = "3"
+members = ["backend/bin/api","backend/crates/appointment_service","backend/crates/auth_service", "backend/crates/catalog_service","backend/crates/common", "backend/crates/db", "backend/crates/diagnosis_service", "backend/crates/integration", "backend/crates/notification_service", "backend/crates/openapi", "backend/crates/order_service", "backend/crates/prescription_service", "backend/crates/profile_service", "backend/crates/shipping_service"]

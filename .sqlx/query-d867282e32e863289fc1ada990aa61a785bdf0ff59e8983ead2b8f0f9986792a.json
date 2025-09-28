@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE appointments SET status = 'ACCEPTED' WHERE appointment_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d867282e32e863289fc1ada990aa61a785bdf0ff59e8983ead2b8f0f9986792a"
+}
