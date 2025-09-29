@@ -37,7 +37,7 @@ pub struct BookReq {
 
 #[utoipa::path(
     post,
-    path = "/appointments",
+    path = "/",
     request_body = BookReq,
     responses(
         (status = 200, description = "Book appointment successfully", body = Appointment),
@@ -64,7 +64,7 @@ async fn book(State(ctx): State<Ctx>, Json(req): Json<BookReq>) -> AppResult<Jso
 
 #[utoipa::path(
     get,
-    path = "/appointments/{id}",
+    path = "/{id}",
     params(
         ("id" = i32, Path, description = "Appointment ID")
     ),

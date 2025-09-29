@@ -7,6 +7,7 @@ use utoipa_swagger_ui::{Config, SwaggerUi};
 
 #[derive(OpenApi, Default)]
 #[openapi(
+    servers((url = "/api")),
     nest(
         (path = "/appointments", api = appointment_service::ApiDoc),
         //(path = "/auth", api = auth_service::ApiDoc),
