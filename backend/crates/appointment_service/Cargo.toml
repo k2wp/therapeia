@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-axum = "0.8.4"
+axum = "0.8.6"
 common = { version = "0.1.0", path = "../common" }
 db = { version = "0.1.0", path = "../db" }
 serde = "1.0.228"
