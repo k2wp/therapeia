@@ -14,15 +14,45 @@ Computer System Engineering** *(Software Architecture)* course of
 
 ## Setup
 
-TODO
+TODO: add frontend setup instructions
 
 ### Installation
 
-TODO
+Clone this repository, copy `.env.example` to `.env` then fill out all the missing
+enrironment variables.
+
+#### Nix
+
+Install [`devenv`](https://devenv.sh/getting-started/) then enter the
+development shell either automatically via
+[`nix-direnv`](https://github.com/nix-community/nix-direnv) or manually via running
+`devenv shell` in the repository root, which will install all required dependencies.
+
+Then, run `devenv up -d` to start all the required services in the background.
+
+#### Manual
+
+Install [PostgreSQL](https://www.postgresql.org/download/),
+[Rust](https://rust-lang.org/tools/install/) and
+[SQLx](https://github.com/launchbadge/sqlx).
+
+Then, start the PostgreSQL database server.
+
+---
+
+Finally, run `cargo sqlx migrate run` to run initial database migrations.
 
 ### Usage
 
-TODO
+Run the backend via `cargo run` or `cargo run --release`. The API can now be accessed via
+`http:$BIND_ADDR/api`, and their documentation can be accessed via
+`http:$BIND_ADDR/docs/<visualiser>`. There are 4 visualisers available to use:
+> [!NOTE]
+> The trailing forward slash (`/`) in the URL for Swagger UI is required.
+- [Swagger UI](https://swagger.io/tools/swagger-ui/): `.../swagger/`
+- [RapiDoc](https://rapidocweb.com/): `.../rapidoc`
+- [Redoc](https://redocly.github.io/redoc/): `.../redoc`
+- [Scalar](https://scalar.com/): `.../scalar`
 
 ## Contributions
 
