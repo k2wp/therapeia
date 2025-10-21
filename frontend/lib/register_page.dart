@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/api_service.dart';
+import 'package:flutter_frontend/models/auth_session.dart';
 import 'widgets/custom_button.dart';
 import 'widgets/custom_textfield.dart';
 
@@ -8,8 +10,6 @@ class RegisterPage extends StatefulWidget {
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
-
-enum UserRole { patient, doctor }
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
@@ -21,6 +21,18 @@ class _RegisterPageState extends State<RegisterPage> {
   final _roleSpecificController = TextEditingController();
 
   UserRole _selectedRole = UserRole.patient;
+  bool _isSubmitting = false;
+
+  @override
+  void dispose() {
+    _citizenIdController.dispose();
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    _roleSpecificController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   'ยินดีต้อนรับ',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 32.0),
+                const SizedBox(height: 16.0),
                 CustomTextField(
                   controller: _citizenIdController,
                   labelText: 'เลขบัตรประชาชน 13 หลัก (Citizen ID)',
@@ -96,12 +108,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 const SizedBox(height: 32.0),
                 CustomButton(
-                  text: 'สร้างบัญชีใหม่',
-                  onPressed: () {
-                    // TODO: Add registration logic
-                    // if (_formKey.currentState!.validate()) { ... }
-                    Navigator.pop(context);
-                  },
+                  text: _isSubmitting ? 'กำลังสร้างบัญชี...' : 'สร้างบัญชีใหม่',
+                  onPressed: _isSubmitting ? null : () => _handleRegister(),
                   color: Colors.lightGreen[100],
                   textColor: Colors.black,
                 ),
@@ -121,13 +129,86 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
+  Future<void> _handleRegister() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    final citizenId = _citizenIdController.text.trim();
+    final firstName = _firstNameController.text.trim();
+    final lastName = _lastNameController.text.trim();
+    final phone = _phoneController.text.trim();
+    final password = _passwordController.text;
+    final identifier = _roleSpecificController.text.trim();
+
+    if (citizenId.isEmpty ||
+        firstName.isEmpty ||
+        lastName.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        identifier.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('กรุณากรอกข้อมูลให้ครบถ้วน')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    final apiService = ApiService();
+
+    try {
+      if (_selectedRole == UserRole.patient) {
+        await apiService.registerPatient(
+          hn: identifier,
+          citizenId: citizenId,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          password: password,
+        );
+      } else {
+        await apiService.registerDoctor(
+          mln: identifier,
+          citizenId: citizenId,
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          password: password,
+        );
+      }
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('สมัครสมาชิกสำเร็จ')));
+      Navigator.pop(context);
+    } catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error.toString())));
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
+    }
+  }
 }
 
 class _RoleSelector extends StatelessWidget {
   final UserRole selectedRole;
   final ValueChanged<UserRole?> onRoleChanged;
 
-  const _RoleSelector({required this.selectedRole, required this.onRoleChanged});
+  const _RoleSelector({
+    required this.selectedRole,
+    required this.onRoleChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +262,7 @@ class _PatientSpecificField extends StatelessWidget {
             hintText: 'Enter your HN',
             border: OutlineInputBorder(),
           ),
+          keyboardType: TextInputType.number,
         ),
       ],
     );
