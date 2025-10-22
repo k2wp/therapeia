@@ -1,3 +1,48 @@
+import 'dart:ffi';
+
+class Doctor {
+  final String id;
+  final String name;
+  final String? department;
+  late List<DoctorTimeSlot> timeSlots = [];
+
+  Doctor({required this.id, required this.name, required this.department});
+
+  factory Doctor.fromJson(Map<String, dynamic> json) {
+    return Doctor(
+      id: (json['doctor_id'] as String?)?.trim() ?? '',
+      name: (json['doctor_name'] as String?)?.trim() ?? '-',
+      department: (json['department'] as String?)?.trim(),
+    );
+  }
+}
+
+class DoctorTimeSlot {
+  final int timeSlotId;
+  final int dayOfWeeks;
+  final String startTime;
+  final String endTime;
+  final String placeName;
+
+  DoctorTimeSlot({
+    required this.timeSlotId,
+    required this.dayOfWeeks,
+    required this.startTime,
+    required this.endTime,
+    required this.placeName,
+  });
+
+  factory DoctorTimeSlot.fromJson(Map<String, dynamic> json) {
+    return DoctorTimeSlot(
+      timeSlotId: json['timeslot_id'] as int,
+      dayOfWeeks: json['day_of_weeks'] as int,
+      startTime: (json['start_time'] as String?)?.trim() ?? '',
+      endTime: (json['end_time'] as String?)?.trim() ?? '',
+      placeName: (json['place_name'] as String?)?.trim() ?? '-',
+    );
+  }
+}
+
 class DoctorAppointment {
   final int appointmentId;
   final DateTime date;

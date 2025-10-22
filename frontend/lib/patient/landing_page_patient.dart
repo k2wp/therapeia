@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/patient/book_appointments_page.dart';
+import 'package:flutter_frontend/patient/medical_rights_page.dart';
+import 'package:flutter_frontend/patient/patient_personal_info_page.dart';
+import 'package:flutter_frontend/patient/payment_page.dart';
+import 'package:flutter_frontend/patient/prescriptions_page.dart';
 import 'appointments_page_patient.dart';
-import 'benefits_page_patient.dart';
-import 'information_page_patient.dart';
-import 'payment_page_patient.dart';
+import 'order_history_page.dart';
 import '../login_page.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/landing_page_item.dart';
@@ -18,8 +21,8 @@ class LandingPagePatient extends StatelessWidget {
     {'text': 'ข้อมูลส่วนตัว', 'icon': '⭐'},
     {'text': 'เช็คสิทธิ์รักษา', 'icon': '⭐'},
     {'text': 'รายการนัด', 'icon': '⭐'},
-    {'text': 'เลื่อนนัด', 'icon': '⭐'},
-    {'text': 'รับยา', 'icon': '⭐'},
+    {'text': 'ใบสั่งยา', 'icon': '⭐'},
+    {'text': 'ประวัติการสั่งซื้อ', 'icon': '⭐'},
     {'text': 'ชำระเงิน', 'icon': '⭐'},
   ];
 
@@ -56,7 +59,7 @@ class LandingPagePatient extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          InformationPagePatient(session: session),
+                          PatientPersonalInfoPage(session: session),
                     ),
                   );
                   break;
@@ -64,7 +67,8 @@ class LandingPagePatient extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const BenefitsPagePatient(),
+                      builder: (context) =>
+                          MedicalRightsPagePatient(session: session),
                     ),
                   );
                   break;
@@ -77,17 +81,29 @@ class LandingPagePatient extends StatelessWidget {
                     ),
                   );
                   break;
-                case 'เลื่อนนัด':
-                  // Navigate to Reschedule Appointment Page
+                case 'ใบสั่งยา':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PrescriptionsPage(session: session),
+                    ),
+                  );
                   break;
-                case 'รับยา':
-                  // Navigate to Medication Pickup Page
+                case 'ประวัติการสั่งซื้อ':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          OrderHistoryPage(session: session),
+                    ),
+                  );
                   break;
                 case 'ชำระเงิน':
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const PaymentPagePatient(),
+                      builder: (context) =>
+                          PaymentPagePatient(session: session),
                     ),
                   );
                   break;
