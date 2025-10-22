@@ -19,7 +19,6 @@ Computer System Engineering** *(Software Architecture)* course of
 Clone this repository, copy `.env.example` to `.env` then fill out all the missing
 enrironment variables.
 
-
 #### Nix
 
 Install [`devenv`](https://devenv.sh/getting-started/) then enter the
@@ -32,12 +31,10 @@ Then, run `devenv up -d` to start all the required services in the background.
 #### Manual
 
 Install [PostgreSQL](https://www.postgresql.org/download/),
-[Rust](https://rust-lang.org/tools/install/) and
-[SQLx](https://github.com/launchbadge/sqlx).
+[Rust](https://rust-lang.org/tools/install/),
+[SQLx](https://github.com/launchbadge/sqlx) and [Flutter](https://flutter.dev/).
 
 Then, start the PostgreSQL database server.
-
-For frontend development, you need to install Flutter, first. ['Flutter'](https://flutter.dev/).
 
 ---
 
@@ -55,7 +52,7 @@ Run the backend via `cargo run` or `cargo run --release`. The API can now be acc
 - [Redoc](https://redocly.github.io/redoc/): `.../redoc`
 - [Scalar](https://scalar.com/): `.../scalar`
 
-Run the frontend via Flutter `cd frontend` then `flutter run`
+Run the frontend via `cd frontend && flutter run`.
 
 ## Contributions
 
