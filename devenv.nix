@@ -69,4 +69,10 @@ in
   # See full reference at https://devenv.sh/reference/options/
 
   dotenv.disableHint = true; # already managed by secretspec
+
+  android = {
+    enable = true;
+    flutter.enable = true;
+    platformTools.version = "34.0.5";
+  };
 }
