@@ -11,3 +11,5 @@ devenv.local.nix
 .env
 
 target/
+
+local.properties

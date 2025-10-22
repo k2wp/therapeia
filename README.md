@@ -14,8 +14,6 @@ Computer System Engineering** *(Software Architecture)* course of
 
 ## Setup
 
-TODO: add frontend setup instructions
-
 ### Installation
 
 Clone this repository, copy `.env.example` to `.env` then fill out all the missing
@@ -33,8 +31,8 @@ Then, run `devenv up -d` to start all the required services in the background.
 #### Manual
 
 Install [PostgreSQL](https://www.postgresql.org/download/),
-[Rust](https://rust-lang.org/tools/install/) and
-[SQLx](https://github.com/launchbadge/sqlx).
+[Rust](https://rust-lang.org/tools/install/),
+[SQLx](https://github.com/launchbadge/sqlx) and [Flutter](https://flutter.dev/).
 
 Then, start the PostgreSQL database server.
 
@@ -54,6 +52,8 @@ Run the backend via `cargo run` or `cargo run --release`. The API can now be acc
 - [Redoc](https://redocly.github.io/redoc/): `.../redoc`
 - [Scalar](https://scalar.com/): `.../scalar`
 
+Run the frontend via `cd frontend && flutter run`.
+
 ## Contributions
 
 1. `6410500301` *ภูบดี สุตันรักษ์*
@@ -70,13 +70,19 @@ Design**
 
 Service-based modular monolith, each service being layered
 
+TODO: Architecture Presentation Video
+
 ## Demo
 
-TODO
+TODO: Demo Video
+
+## Contribution Report
+
+TODO: Individual submission to report the contribution of your self and team members
 
 ## Acknowledgements
 
 - [axum](https://docs.rs/axum/latest/axum/) - Ergonomic and modular
 web framework built with Tokio, Tower, and Hyper
+- [utoipa](https://docs.rs/utoipa/latest/utoipa/) - Simple, Fast, Code first and Compile time generated OpenAPI documentation for Rust
 - [flutter](https://flutter.dev/) - Build apps for any screen
-- ... TODO

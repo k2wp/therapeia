@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import 'dart:typed_data';
+import 'package:flutter_frontend/patient/models/patient_models.dart';
+
 import 'doctor/models/doctor_models.dart';
 import 'models/auth_session.dart';
 
@@ -329,6 +332,175 @@ class ApiService {
     );
   }
 
+  /// Patient appointments ---------------------------------------------------------------
+
+  Future<List<Doctor>> getAvailableDoctors() async {
+    final lists = await _getJsonListOrEmpty('/appointments/doctor');
+    final doctors = lists
+        .whereType<Map<String, dynamic>>()
+        .map(Doctor.fromJson)
+        .toList();
+
+    await Future.wait(
+      doctors.map((doc) async {
+        final rawTimeSlots = await _getJsonListOrEmpty(
+          '/appointments/doctor/${doc.id}',
+        );
+        doc.timeSlots = rawTimeSlots
+            .whereType<Map<String, dynamic>>()
+            .map(DoctorTimeSlot.fromJson)
+            .toList();
+      }),
+    );
+
+    return doctors;
+  }
+
+  Future<bool> createAppointment({
+    required AuthSession session,
+    required DateTime date,
+    required String doctorId,
+    required String startTime,
+    required String endTime,
+  }) async {
+    final payload = <String, dynamic>{
+      'date': _formatDate(date),
+      'doctor_id': doctorId,
+      'start_time': startTime,
+      'end_time': endTime,
+    };
+    final data = await _postJson(
+      '/appointments',
+      body: payload,
+      session: session,
+    );
+
+    return data.containsKey('appointment_id');
+  }
+
+  Future<bool> cancelAppointment({
+    required AuthSession session,
+    required int appointmentId,
+  }) async {
+    final response = await _client
+        .patch(
+          _uri('/appointments/$appointmentId/canceled'),
+          headers: _headers(session: session),
+        )
+        .timeout(_timeout);
+
+    if (response.statusCode < 200 || response.statusCode >= 300) {
+      _throwHttpError(response);
+    }
+
+    return true;
+  }
+
+  /// Patient order & shipping ---------------------------------------------------------------
+
+  Future<List<Order>> getOrderHistory(AuthSession session) async {
+    final data = await _getJsonListOrEmpty('/orders', session: session);
+    return data.whereType<Map<String, dynamic>>().map(Order.fromJson).toList();
+  }
+
+  Future<List<Order>> getPendingOrders(AuthSession session) async {
+    final data = await _getJsonListOrEmpty('/orders', session: session);
+    return data
+        .whereType<Map<String, dynamic>>()
+        .map(Order.fromJson)
+        .where((o) => o.statusCode == 1)
+        .toList();
+  }
+
+  Future<ShippingAddress?> getShippingAddress(AuthSession session) async {
+    try {
+      final data = await _getJson('/shipping/address', session: session);
+      return ShippingAddress.fromJson(data);
+    } catch (e) {
+      final msg = e.toString();
+      if (msg.contains('404') || msg.contains('Not Found')) {
+        return null;
+      }
+      rethrow;
+    }
+  }
+
+  Future<bool> saveShippingAddress(
+    AuthSession session,
+    String address,
+    String firstName,
+    String lastName,
+    double? lat,
+    double? lon,
+    String phone,
+    String postalCode,
+  ) async {
+    final payload = <String, dynamic>{
+      'address': address.trim(),
+      'first_name': firstName.trim(),
+      'last_name': lastName.trim(),
+      'phone': phone.trim(),
+      'postal_code': postalCode.trim(),
+      'lat': lat,
+      'lon': lon,
+    };
+    await _postJson('/shipping/address', body: payload, session: session);
+    return true;
+  }
+
+  Future<bool> updateShippingAddress(
+    AuthSession session,
+    String address,
+    String firstName,
+    String lastName,
+    double? lat,
+    double? lon,
+    String phone,
+    String postalCode,
+  ) async {
+    final payload = <String, dynamic>{
+      'address': address.trim(),
+      'first_name': firstName.trim(),
+      'last_name': lastName.trim(),
+      'phone': phone.trim(),
+      'postal_code': postalCode.trim(),
+      'lat': lat,
+      'lon': lon,
+    };
+    await _patchJson('/shipping/address', body: payload, session: session);
+    return true;
+  }
+
+  Future<ShippingStatus> getShippingStatus(
+    AuthSession session,
+    String orderId,
+  ) async {
+    final data = await _getJson(
+      '/shipping/orders/$orderId/status',
+      session: session,
+    );
+    return ShippingStatus.fromJson(data);
+  }
+
+  Future<Uint8List> getShippingMapImage(
+    AuthSession session,
+    String orderId,
+  ) async {
+    final response = await _client
+        .get(
+          _uri('/shipping/orders/$orderId/map'),
+          headers: _headers(session: session),
+        )
+        .timeout(_timeout);
+
+    if (response.statusCode == 200) return response.bodyBytes;
+
+    if (response.statusCode == 404) {
+      throw Exception('Order not found');
+    }
+    throw Exception('Failed to fetch map: ${response.statusCode}');
+  }
+
   /// Doctor view -----------------------------------------------------------------
 
   Future<List<DoctorAppointment>> getDoctorAppointments(
@@ -412,6 +584,13 @@ class ApiService {
   }
 
   /// Prescriptions ---------------------------------------------------------------
+  Future<List<PrescriptionItem>> getPrescriptions(AuthSession session) async {
+    final data = await _getJsonListOrEmpty('/prescriptions', session: session);
+    return data
+        .whereType<Map<String, dynamic>>()
+        .map(PrescriptionItem.fromJson)
+        .toList();
+  }
 
   Future<List<PrescriptionItem>> getPatientPrescriptions(
     AuthSession session,
