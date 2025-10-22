@@ -4,7 +4,7 @@ import 'login_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
+  await dotenv.load(fileName: '../.env');
   runApp(MyApp());
 }
 

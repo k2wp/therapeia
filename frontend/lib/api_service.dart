@@ -19,7 +19,9 @@ class ApiService {
   static String _resolveBaseUrl() {
     const fallback = 'http://127.0.0.1:8000/api';
     final bindAddr = dotenv.maybeGet('BIND_ADDR')?.trim();
+    print("bindAddr: $bindAddr");
     if (bindAddr == null || bindAddr.isEmpty) {
+      print("fallback: $fallback");
       return fallback;
     }
     final hasScheme =
@@ -29,8 +31,10 @@ class ApiService {
         ? withScheme.substring(0, withScheme.length - 1)
         : withScheme;
     if (sanitized.endsWith('/api')) {
+      print("sanitized: $sanitized");
       return sanitized;
     }
+    print("result: $sanitized/api");
     return '$sanitized/api';
   }
 
