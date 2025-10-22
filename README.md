@@ -14,12 +14,11 @@ Computer System Engineering** *(Software Architecture)* course of
 
 ## Setup
 
-TODO: add frontend setup instructions
-
 ### Installation
 
 Clone this repository, copy `.env.example` to `.env` then fill out all the missing
 enrironment variables.
+
 
 #### Nix
 
@@ -38,6 +37,8 @@ Install [PostgreSQL](https://www.postgresql.org/download/),
 
 Then, start the PostgreSQL database server.
 
+For frontend development, you need to install Flutter, first. ['Flutter'](https://flutter.dev/).
+
 ---
 
 Finally, run `cargo sqlx migrate run` to run initial database migrations.
@@ -53,6 +54,8 @@ Run the backend via `cargo run` or `cargo run --release`. The API can now be acc
 - [RapiDoc](https://rapidocweb.com/): `.../rapidoc`
 - [Redoc](https://redocly.github.io/redoc/): `.../redoc`
 - [Scalar](https://scalar.com/): `.../scalar`
+
+Run the frontend via Flutter `cd frontend` then `flutter run`
 
 ## Contributions
 
