@@ -73,13 +73,19 @@ Design**
 
 Service-based modular monolith, each service being layered
 
+TODO: Architecture Presentation Video
+
 ## Demo
 
-TODO
+TODO: Demo Video
+
+## Contribution Report
+
+TODO: Individual submission to report the contribution of your self and team members
 
 ## Acknowledgements
 
 - [axum](https://docs.rs/axum/latest/axum/) - Ergonomic and modular
 web framework built with Tokio, Tower, and Hyper
+- [utoipa](https://docs.rs/utoipa/latest/utoipa/) - Simple, Fast, Code first and Compile time generated OpenAPI documentation for Rust
 - [flutter](https://flutter.dev/) - Build apps for any screen
-- ... TODO
