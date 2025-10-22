@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 import 'doctor/models/doctor_models.dart';
@@ -8,13 +8,35 @@ import 'models/auth_session.dart';
 class ApiService {
   ApiService({http.Client? client}) : _client = client ?? http.Client();
 
-  static const String _baseUrl = 'http://127.0.0.1:8000/api';
+  static final String _baseUrl = _resolveBaseUrl();
   static const Duration _timeout = Duration(seconds: 20);
 
   final http.Client _client;
 
   Uri _uri(String path, [Map<String, String>? query]) =>
       Uri.parse('$_baseUrl$path').replace(queryParameters: query);
+
+  static String _resolveBaseUrl() {
+    const fallback = 'http://127.0.0.1:8000/api';
+    final bindAddr = dotenv.maybeGet('BIND_ADDR')?.trim();
+    print("bindAddr: $bindAddr");
+    if (bindAddr == null || bindAddr.isEmpty) {
+      print("fallback: $fallback");
+      return fallback;
+    }
+    final hasScheme =
+        bindAddr.startsWith('http://') || bindAddr.startsWith('https://');
+    final withScheme = hasScheme ? bindAddr : 'http://$bindAddr';
+    final sanitized = withScheme.endsWith('/')
+        ? withScheme.substring(0, withScheme.length - 1)
+        : withScheme;
+    if (sanitized.endsWith('/api')) {
+      print("sanitized: $sanitized");
+      return sanitized;
+    }
+    print("result: $sanitized/api");
+    return '$sanitized/api';
+  }
 
   Map<String, String> _headers({AuthSession? session}) {
     final headers = <String, String>{
