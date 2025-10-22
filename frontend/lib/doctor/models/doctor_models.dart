@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Doctor {
   final String id;
   final String name;

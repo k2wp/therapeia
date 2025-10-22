@@ -8,10 +8,6 @@ Computer System Engineering** *(Software Architecture)* course of
 **Department of Computer Engineering**, **Faculity of Engineering**,
 **Kasetsart University**.
 
-> [!WARNING]
-> This project is still under development. Some features will be
-> missing.
-
 ## Setup
 
 ### Installation
@@ -68,17 +64,13 @@ Design**
 
 ## System Architecture
 
-Service-based modular monolith, each service being layered
+Layered monolith, with domain partitioning
 
-TODO: Architecture Presentation Video
+[Architecture Presentation Video](https://drive.google.com/file/d/13LZzYC8s8UmbG9_5dtWeAsowZ4VBXmgH/view)
 
 ## Demo
 
-TODO: Demo Video
-
-## Contribution Report
-
-TODO: Individual submission to report the contribution of your self and team members
+[Demo Video](https://drive.google.com/file/d/1BqRcOB4Srb8iugjG6w1orHv4Pa9tudAn/view)
 
 ## Acknowledgements
 
