@@ -1,2 +1,2 @@
 [codespell]
-skip = target,Cargo.lock
+skip = target,Cargo.lock,./frontend/linux/flutter/ephemeral/flutter_linux
