@@ -29,19 +29,21 @@ impl AuthRepo for SqlxAuthRepo {
             citizen_id,
             first_name,
             last_name,
+            email,
             phone,
             password,
         } = input;
         let password_hash = hash_password(&password)?;
         let mut tx = self.pool.begin().await?;
         let user_id = sqlx::query_scalar!(
-            r#"INSERT INTO users (phone, first_name, last_name, citizen_id, password)
-               VALUES ($1,$2,$3,$4,$5) RETURNING user_id"#,
+            r#"INSERT INTO users (phone, first_name, last_name, citizen_id, password, email)
+               VALUES ($1,$2,$3,$4,$5,$6) RETURNING user_id"#,
             phone,
             first_name,
             last_name,
             citizen_id,
-            password_hash
+            password_hash,
+            email,
         )
         .fetch_one(&mut *tx)
         .await?;
@@ -139,17 +141,19 @@ impl AuthRepo for SqlxAuthRepo {
             last_name,
             phone,
             password,
+            email,
         } = input;
         let password_hash = hash_password(&password)?;
         let mut tx = self.pool.begin().await?;
         let user_id = sqlx::query_scalar!(
-            r#"INSERT INTO users (phone, first_name, last_name, citizen_id, password)
-               VALUES ($1,$2,$3,$4,$5) RETURNING user_id"#,
+            r#"INSERT INTO users (phone, first_name, last_name, citizen_id, password, email)
+               VALUES ($1,$2,$3,$4,$5,$6) RETURNING user_id"#,
             phone,
             first_name,
             last_name,
             citizen_id,
-            password_hash
+            password_hash,
+            email,
         )
         .fetch_one(&mut *tx)
         .await?;

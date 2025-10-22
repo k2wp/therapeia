@@ -179,6 +179,7 @@ class ApiService {
     required String citizenId,
     required String firstName,
     required String lastName,
+    required String email,
     required String phone,
     required String password,
   }) async {
@@ -191,6 +192,7 @@ class ApiService {
       'citizen_id': citizenId.trim(),
       'first_name': firstName.trim(),
       'last_name': lastName.trim(),
+      'email': email.trim(),
       'phone': phone.trim(),
       'password': password,
     };
@@ -204,6 +206,7 @@ class ApiService {
     required String citizenId,
     required String firstName,
     required String lastName,
+    required String email,
     required String phone,
     required String password,
   }) async {
@@ -212,6 +215,7 @@ class ApiService {
       'citizen_id': citizenId.trim(),
       'first_name': firstName.trim(),
       'last_name': lastName.trim(),
+      'email': email.trim(),
       'phone': phone.trim(),
       'password': password,
     };

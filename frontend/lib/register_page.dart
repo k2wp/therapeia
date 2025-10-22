@@ -16,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _citizenIdController = TextEditingController();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _roleSpecificController = TextEditingController();
@@ -28,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _citizenIdController.dispose();
     _firstNameController.dispose();
     _lastNameController.dispose();
+    _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
     _roleSpecificController.dispose();
@@ -71,6 +73,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _lastNameController,
                   labelText: 'นามสกุล (Last Name)',
                   hintText: 'Enter your Last Name',
+                ),
+                const SizedBox(height: 16.0),
+                CustomTextField(
+                  controller: _emailController,
+                  labelText: 'อีเมล (Email)',
+                  hintText: 'Enter your Email',
                 ),
                 const SizedBox(height: 16.0),
                 CustomTextField(
@@ -138,6 +146,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final citizenId = _citizenIdController.text.trim();
     final firstName = _firstNameController.text.trim();
     final lastName = _lastNameController.text.trim();
+    final email = _emailController.text.trim();
     final phone = _phoneController.text.trim();
     final password = _passwordController.text;
     final identifier = _roleSpecificController.text.trim();
@@ -145,6 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (citizenId.isEmpty ||
         firstName.isEmpty ||
         lastName.isEmpty ||
+        email.isEmpty ||
         phone.isEmpty ||
         password.isEmpty ||
         identifier.isEmpty) {
@@ -167,6 +177,7 @@ class _RegisterPageState extends State<RegisterPage> {
           citizenId: citizenId,
           firstName: firstName,
           lastName: lastName,
+          email: email,
           phone: phone,
           password: password,
         );
@@ -176,6 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
           citizenId: citizenId,
           firstName: firstName,
           lastName: lastName,
+          email: email,
           phone: phone,
           password: password,
         );

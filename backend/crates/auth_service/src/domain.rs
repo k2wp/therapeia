@@ -8,6 +8,7 @@ pub struct PatientSignupReq {
     pub citizen_id: String,
     pub first_name: String,
     pub last_name: String,
+    pub email: String,
     pub phone: String,
     pub password: String,
 }
@@ -50,6 +51,7 @@ pub struct DoctorSignupReq {
     pub last_name: String,
     pub phone: String,
     pub password: String,
+    pub email: String,
 }
 
 #[derive(Debug, Clone)]
@@ -60,6 +62,7 @@ pub struct DoctorSignupInput {
     pub last_name: String,
     pub phone: String,
     pub password: String,
+    pub email: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
@@ -108,6 +111,7 @@ pub struct PatientSignupInput {
     pub citizen_id: String,
     pub first_name: String,
     pub last_name: String,
+    pub email: String,
     pub phone: String,
     pub password: String,
 }
@@ -119,6 +123,7 @@ impl From<PatientSignupReq> for PatientSignupInput {
             citizen_id: value.citizen_id,
             first_name: value.first_name,
             last_name: value.last_name,
+            email: value.email,
             phone: value.phone,
             password: value.password,
         }
@@ -155,6 +160,7 @@ impl From<DoctorSignupReq> for DoctorSignupInput {
             last_name: value.last_name,
             phone: value.phone,
             password: value.password,
+            email: value.email,
         }
     }
 }
